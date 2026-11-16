@@ -1,0 +1,64 @@
+[project]
+name = "coupon-merge-lab"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+  "ipython>=9.18.1",
+  "marimo[mcp]>=0.25.2",
+  "matplotlib>=3.11.2",
+  "plotly>=6",
+  "pydantic-ai>=2.68.0",
+  "ruff==0.17.5",
+]
+
+[[tool.uv.index]]
+url = "https://mirrors.ustc.edu.cn/pypi/simple"
+default = true
+
+[tool.ruff]
+line-length = 80
+target-version = "py315"
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+  "E", # pycodestyle
+  "W", # pycodestyle warnings
+  "F", # pyflakes
+  "I", # isort（导入排序）
+  "UP", # pyupgrade（按 target-version 升级写法）
+  "B", # bugbear（常见陷阱）
+  "C4", # 推导式
+  "SIM", # 可简化代码
+  "RET", # 冗余 return
+  "PIE", # 杂项
+  "PERF", # 性能
+  "FURB", # 现代化改写
+  "RUF", # ruff 自有规则
+]
+ignore = [
+  "E501", # 行长交给 formatter，不在 lint 阶段报
+  "RUF001", # 允许中文全角标点（注释/docstring 常用）
+  "RUF002",
+  "RUF003",
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"] # 包的 re-export 不应报未使用
+"src/coupon_chart.py" = ["C408"] # plotly 惯用 dict(...) 写法
+"src/coupon_nb.py" = ["C408", "B018"] # marimo 单元格末尾裸表达式即渲染
+
+[tool.ruff.format]
+quote-style = "double" # 统一双引号
+indent-style = "space"
+line-ending = "lf" # 统一 LF，避免 Windows 上混入 CRLF
+skip-magic-trailing-comma = false # 有尾逗号就强制多行（diff 更稳）
+docstring-code-format = true # docstring 内代码块也格式化
+docstring-code-line-length = 100
+
+[tool.ty.environment]
+# src/ 下的模块用平铺导入（import coupon），把该目录加进解析路径
+extra-paths = ["src"]
