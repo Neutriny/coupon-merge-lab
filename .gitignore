@@ -1,8 +1,10 @@
-.ruff_cache/
+.venv/
 .idea/
 .zed/
 .agents/
+
+.ruff_cache/
 src/__pycache__/
 src/__marimo__/
-.venv/
+
 skills-lock.json

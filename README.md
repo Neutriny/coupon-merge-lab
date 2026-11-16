@@ -20,7 +20,7 @@
 
 ```bash
 uv sync
-uv run marimo edit src/coupon_nb.py   # 交互式 notebook
+marimo edit src/coupon_nb.py   # 交互式 notebook
 ```
 
 或者在 IPython 里直接算：
